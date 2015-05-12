@@ -32,5 +32,5 @@ class MainHandler(BaseHandler):
         self.render_template("hello.html")
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    webapp2.Route('/', MainHandler),
 ], debug=True)
