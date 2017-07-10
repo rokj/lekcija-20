@@ -21,7 +21,7 @@ class BaseHandler(webapp2.RequestHandler):
         return self.write(self.render_str(template, **kw))
 
     def render_template(self, view_filename, params=None):
-        if not params:
+        if params is None:
             params = {}
         template = jinja_env.get_template(view_filename)
         return self.response.out.write(template.render(params))
