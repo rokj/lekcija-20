@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Vnos osebe{% endblock %}
+
+{% block vsebina %}
+
+<h1>Vnos osebe</h1>
+
+<form method="post" action="">
+    <input type="text" id="ime" name="ime" placeholder="Ime" /> <br/>
+    <input type="text" id="priimek" name="priimek" placeholder="Priimek" /><br/>
+    <input type="text" id="naslov" name="naslov" placeholder="Naslov" /><br/>
+
+    <button type="submit">Vnesi</button>
+</form>
+
+{% if sporocilo %}
+    <h2>{{ sporocilo }}</h2>
+{% endif %}
+
+
+{% endblock vsebina %}

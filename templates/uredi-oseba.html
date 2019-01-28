@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Posamezna oseba{% endblock %}
+
+{% block vsebina %}
+
+<h1>Oseba</h1>
+
+<form method="post">
+    ID: {{ oseba.key.id() }} <br/>
+    ime: <input type="text" id="ime" name="ime" value="{{ oseba.ime }}" /> <br/>
+    priimek: <input type="text" id="priimek" name="priimek" value="{{ oseba.priimek }}" /> <br/>
+    naslov: <input type="text" id="naslov" name="naslov" value="{{ oseba.naslov }}" /> <br/>
+
+    <button type="submit">Posodobi</button>
+</form>
+
+{% if sporocilo %}
+    <h2>{{ sporocilo }}</h2>
+{% endif %}
+
+{% endblock vsebina %}

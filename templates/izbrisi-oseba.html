@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Izbrisi oseba{% endblock %}
+
+{% block vsebina %}
+
+{% if oseba %}
+    <form method="post">
+        <h1>Ali res zelis izbrisati osebo?</h1>
+
+        ID: {{ oseba.key.id() }} <br/>
+        ime: {{ oseba.ime }} <br/>
+        priimek: {{ oseba.priimek }} <br/>
+        naslov: {{ oseba.naslov }} <br/>
+
+        <button type="submit">DA, izbrisi!</button>
+    </form>
+{% endif %}
+
+{% if sporocilo %}
+    <h2>{{ sporocilo }}</h2>
+{% endif %}
+
+{% endblock vsebina %}

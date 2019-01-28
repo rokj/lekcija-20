@@ -1,0 +1,13 @@
+[
+  {
+    "ime": "Janez",
+    "priimek": "Novak",
+    "naslov": "Ljubljana"
+  },
+  {
+    "ime": "Janez",
+    "priimek": "Novak",
+    "naslov": "Ljubljana",
+    "nastanek": "1123123 123213"
+  }
+]

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Seznam oseb{% endblock %}
+
+{% block vsebina %}
+<h1>Seznam oseb</h1>
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Ime</td>
+            <td>Priimek</td>
+            <td>Naslov</td>
+            <td>Nastanek</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in seznam %}
+            <tr>
+                <td><a href="/oseba/{{ s.key.id() }}">{{ s.key.id() }}</a></td>
+                <td>{{ s.ime }}</td>
+                <td>{{ s.priimek }}</td>
+                <td>{{ s.naslov }}</td>
+                <td>{{ s.nastanek }}</td>
+                <td><a href="/oseba/{{ s.key.id() }}/uredi">Uredi</a></td>
+                <td><a href="/oseba/{{ s.key.id() }}/izbrisi">Izbrisi</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock vsebina %}

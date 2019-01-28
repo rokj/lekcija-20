@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Kalkulator{% endblock %}
+
+{% block vsebina %}
+<form method="post">
+    <h1>KALKULATOR</h1>
+
+    Prva stevilka: <input type="text" placeholder="Vnesi prvo stevilko" id="prva_stevilka" name="prva_stevilka" /><br />
+    Druga stevilka: <input type="text" placeholder="Vnesi drugo stevilko" id="druga_stevilka" name="druga_stevilka" /><br />
+
+    <input type="submit" value="+" />
+</form>
+
+{% if vsota %}
+    <hr/>
+
+    Rezultat: {{ vsota }}
+{% endif %}
+
+{% endblock vsebina %}

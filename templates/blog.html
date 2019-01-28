@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}To je BLOG STRAN{% endblock %}
+
+{% block vsebina %}
+    {% if sporocilo %}
+        {{ sporocilo }}
+
+        <br />
+
+        <div style="color: red;">{{ tisto_kar_sem_vnesel_plus_nekaj }}</div>
+    {% else %}
+        {% if ime and priimek %}
+            <div>{{ ime }}</div>
+            <div>{{ priimek }}</div>
+        {% else %}
+            <div>Ime in priimek nista nastavljena</div>
+        {% endif %}
+
+        <form method="post" action="/vnos-komentarja">
+            <input type="text" placeholder="Vnesi komentar" id="vnos" name="vnos" />
+            <input type="text" placeholder="Ime" id="ime" name="ime" />
+
+            <input type="hidden" id="skrita_stevilka" name="skrita_stevilka" value="123123" />
+
+            <button type="submit">Objavi</button>
+        </form>
+    {% endif %}
+{% endblock vsebina %}

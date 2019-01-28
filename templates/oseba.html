@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Posamezna oseba{% endblock %}
+
+{% block vsebina %}
+
+<h1>Oseba</h1>
+
+ID: {{ oseba.key.id() }} <br/>
+ime: {{ oseba.ime }} <br/>
+priimek: {{ oseba.priimek }} <br/>
+naslov: {{ oseba.naslov }} <br/>
+
+{% endblock vsebina %}
