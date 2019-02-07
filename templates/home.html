@@ -4,4 +4,18 @@
 
 {% block vsebina %}
 <h1>to je naslov na glavni strani</h1>
+
+{% if user %}
+    <h2>uporabnik je logiran</h2>
+
+    <p>email: {{ user.email() }}</p>
+    <p>nickname: {{ user.nickname() }}</p>
+
+    <a href="{{ logout_url }}">Logout</a>
+{% else %}
+    <h2>uporabnik NI logiran</h2>
+
+    <a href="{{ login_url }}">Login</a>
+{% endif %}
+
 {% endblock vsebina %}

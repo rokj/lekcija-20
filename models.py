@@ -9,6 +9,8 @@ class Oseba(ndb.Model):
     nastanek = ndb.DateTimeProperty(auto_now_add=True)
     izbrisan = ndb.BooleanProperty(default=False)
 
+    email = ndb.StringProperty()
+    password = ndb.StringProperty()
 
 class Avto(ndb.Model):
     ime = ndb.StringProperty()

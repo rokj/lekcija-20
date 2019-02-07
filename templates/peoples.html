@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}To je glavna stran{% endblock %}
+
+{% block vsebina %}
+
+<table border="1">
+    <tr>
+        <td>ID</td>
+        <td>First name</td>
+        <td>Last name</td>
+        <td>Email</td>
+        <td>Country</td>
+        <td>SSN</td>
+    </tr>
+
+    {% for people in peoples %}
+        <tr>
+            <td>{{ people.id }}</td>
+            <td>{{ people.first_name }}</td>
+            <td>{{ people.last_name }}</td>
+            <td>{{ people.email }}</td>
+            <td>{{ people.country }}</td>
+            <td>{{ people.SSN }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock vsebina %}

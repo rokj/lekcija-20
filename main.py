@@ -3,8 +3,11 @@ import os
 import jinja2
 import webapp2
 import logging
+import json
 
 from models import Oseba, Avto
+from google.appengine.api import users
+from google.appengine.api import urlfetch
 
 
 template_dir = os.path.join(os.path.dirname(__file__), "templates")
@@ -32,7 +35,26 @@ class BaseHandler(webapp2.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        return self.render_template("home.html")
+        user = users.get_current_user()
+
+        logging.info("tukaj sem")
+        logging.info(user)
+
+        login_url = False
+        logout_url = False
+
+        if not user:
+            login_url = users.create_login_url('/')
+        else:
+            logout_url = users.create_logout_url('/')
+
+        params = {
+            'user': user,
+            'login_url': login_url,
+            'logout_url': logout_url
+        }
+
+        return self.render_template("home.html", params=params)
 
 class BlogHandler(BaseHandler):
     def post(self):
@@ -81,8 +103,12 @@ class KalkulatorHandler(BaseHandler):
     def post(self):
         prva_stevilka = self.request.get("prva_stevilka")
         druga_stevilka = self.request.get("druga_stevilka")
+        akcija = self.request.get("akcija")
 
-        vsota = int(prva_stevilka) + int(druga_stevilka)
+        if akcija == "+":
+            vsota = int(prva_stevilka) + int(druga_stevilka)
+        elif akcija == "-":
+            vsota = int(prva_stevilka) - int(druga_stevilka)
         params = {
             "vsota": vsota
         }
@@ -115,6 +141,7 @@ class VnosOsebeHandler(BaseHandler):
             priimek=vnesen_priimek,
             naslov=vnesen_naslov
         )
+        # save v bazo
         oseba.put()
 
         avto = Avto(
@@ -197,6 +224,41 @@ class IzbrisiOsebaHandler(BaseHandler):
         return self.render_template("izbrisi-oseba.html", params=params)
 
 
+class PeoplesHandler(BaseHandler):
+    def get(self):
+
+        data = open("people.json", "r").read() # preberemo podatke iz datoteke
+
+        json_data = json.loads(data) # spremenimo vse podatke iz datoteke, ki so v stringu
+        # v python dictionary
+
+        logging.info(json_data) # izpisemo v log
+
+        params = {
+            'peoples': json_data
+        }
+
+        return self.render_template("peoples.html", params=params)
+
+class WeatherHandler(BaseHandler):
+    def get(self):
+        url = "https://api.openweathermap.org/data/2.5/find?q=Ljubljana&units=metric&appid=e7208c603e1c0961db13207af0ba8901"
+        result = urlfetch.fetch(url) # to je v json stringu
+
+        json_data = json.loads(result.content) # spremenimo vse podatke iz datoteke, ki so v stringu
+        # v python dictionary
+
+        logging.info(json_data) # izpisemo v log
+
+        params = {
+            'data': json_data
+        }
+
+        return self.render_template("weather.html", params=params)
+
+
+
+
 app = webapp2.WSGIApplication([
     webapp2.Route('/', MainHandler),
     webapp2.Route('/blog', BlogHandler),
@@ -208,4 +270,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/oseba/<oseba_id:\d+>', OsebaHandler),
     webapp2.Route('/oseba/<oseba_id:\d+>/uredi', UrediOsebaHandler),
     webapp2.Route('/oseba/<oseba_id:\d+>/izbrisi', IzbrisiOsebaHandler),
+
+    webapp2.Route('/peoples', PeoplesHandler),
+    webapp2.Route('/weather', WeatherHandler),
 ], debug=True)

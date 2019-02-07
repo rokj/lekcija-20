@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}VREMEE{% endblock %}
+
+{% block vsebina %}
+
+<h1>VREME</h1>
+
+Mesto: {{ data.list[0].name }} <br/>
+Temperatura: {{ data.list[0].main.temp }} <br />
+Opis: {{ data.list[0].weather[0].description }} <br />
+
+{% endblock vsebina %}
